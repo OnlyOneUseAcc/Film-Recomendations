@@ -1,4 +1,3 @@
-import numpy as np
 import pandas as pd
 
 CONTENT_PATH = '../Data/content.csv'
@@ -21,7 +20,9 @@ class ContentTable:
     def append_info_content(self, info_content: pd.DataFrame):
         df_content = pd.read_csv(self.__content_path, index_col=0)
 
-        for i in range(info_content.shape[0]):
-            df_content.loc[df_content.index.max() + 1] = info_content.iloc[i]
+        for index, row in info_content.iterrows():
+            if len(set(row.index) - set(COLUMNS_NAME)) != 0:
+                continue
+            df_content.loc[index] = row
 
         df_content.to_csv(self.__content_path)
