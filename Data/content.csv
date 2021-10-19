@@ -1,4 +1,4 @@
-content_uid,name,type,serial_id,genres,duration_seconds
+content_uid,content_name,type,serial_id,genres,duration_seconds
 9882,"""Шоу ""Студия ""Союз""",serial_with_season,,"Игровое шоу,Музыка",88765.0
 19870,#СидЯдома,serial_with_season,,Комедия,13253.0
 2312,(Не)жданный принц,movie,,"Мелодрама,Комедия",4983.0

@@ -3,6 +3,8 @@ from typing import Optional, List
 
 
 class WatchHistoryUnit(BaseModel):
+    user_uid: int = Field(..., description='UID пользователя, просмотревшего контент')
+    content_uid: int = Field(..., description='UID контента, просмотренного пользователем')
     name: str = Field(..., description='Название единицы контента')
     duration: float = Field(..., description="Длительность просмотра в процентах")
     type: Optional[str] = Field(..., description="Тип контента")
