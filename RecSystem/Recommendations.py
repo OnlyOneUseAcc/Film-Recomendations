@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import scipy.spatial as sp
 
-from MatrixManager import MatrixManager
+from RecSystem.MatrixManager import MatrixManager
 from RecSystem.DurationMatrix import DurationSparseMatrix
 from RecSystem.Exceptions.UserNotFoundException import UserNotFoundException
 
@@ -12,6 +12,9 @@ class Recommendations:
     def __init__(self, path):
         self.__path = path
         self.__mm = MatrixManager(self.__path)
+
+    def get_matrix_manager(self):
+        return self.__mm
 
     def get_rec_by_type(self, type_content: str, count: int = 10, last_history_count: int = 1000):
         top_wh = self.__mm.get_watch_history_table()
