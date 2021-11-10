@@ -107,15 +107,17 @@ class WatchHistoryTable(Table):
 class UserTable(Table):
 
     def append(self, user: User):
+        if user.id == -1:
+            user.id = max(self._indexes) + 1
         with open(self._path, 'a') as file:
             if user.id in self._indexes:
-                return False
+                return None
 
             line = f'{user.id},{user.name},{user.password},{str(user.is_admin)}\n'
             file.write(line)
             self._indexes.append(user.id)
 
-        return True
+        return user
 
 
 def test_UserTable():
