@@ -99,6 +99,10 @@ class WatchHistoryTable(Table):
                 file.write(f'{cur_index},{content.user_uid},{content.content_uid},{content.duration}\n')
                 cur_index += 1
 
+    def get_by_user_id(self, user_id):
+        data = self.get_table()
+        return data[data['user_uid'] == user_id]
+
 
 class UserTable(Table):
 

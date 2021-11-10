@@ -2,7 +2,7 @@ import collections
 
 import pandas as pd
 
-from Table import *
+from RecSystem.Table import *
 from models.Content import Content
 from models.User import User
 from models.WatchHistory import WatchHistory
@@ -79,7 +79,17 @@ class MatrixManager:
         return self.__user_table.append(user)
 
     def get_watch_history(self, user_id: int):
-        return self.__watch_history_table.get_by_uid([user_id])
+        units = []
+        for item in self.__watch_history_table.get_by_user_id(user_id).values:
+            content = self.get_content(item[1])
+            unit = WatchHistoryUnit(user_uid=item[0],
+                                    content_uid=item[1],
+                                    duration=item[2] / content[0].duration,
+                                    name=content[0].name,
+                                    type=content[0].type)
+            units.append(unit)
+        history = WatchHistory(history=units)
+        return history
 
     def get_user_genre_table_by_user(self, user_id):
         return self.__users_genres_table.get_by_uid(user_id)
