@@ -9,6 +9,14 @@ class WatchHistoryUnit(BaseModel):
     duration: float = Field(..., description="Длительность просмотра в процентах")
     type: Optional[str] = Field(..., description="Тип контента")
 
+    def __eq__(self, other):
+        return isinstance(other, WatchHistoryUnit) and self.user_uid == other.user_uid \
+                and self.content_uid == other.content_uid \
+                and self.duration == other.duration
+
+    def __hash__(self):
+        return hash(self.user_uid) + hash(self.content_uid) + hash(self.duration)
+
 
 class WatchHistory(BaseModel):
     history: Optional[List[WatchHistoryUnit]] = Field(..., description="Список просмотренных единиц")
@@ -32,7 +40,3 @@ if __name__ == '__main__':
 
     history2.append(unit2)
     print(history2)
-
-
-
-
