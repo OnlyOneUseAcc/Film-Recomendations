@@ -1,6 +1,7 @@
 import uvicorn
 from fastapi import FastAPI, HTTPException
 from fastapi.openapi.utils import get_openapi
+from fastapi.middleware.cors import CORSMiddleware
 
 from models.WatchHistory import WatchHistory
 from models.User import User
@@ -10,6 +11,14 @@ from typing import List
 
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 recommendation_manager = Recommendations('Data/')
 matrix_manager = recommendation_manager.get_matrix_manager()
 
