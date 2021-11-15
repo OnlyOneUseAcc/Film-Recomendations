@@ -99,19 +99,25 @@ class WatchHistoryTable(Table):
                 file.write(f'{cur_index},{content.user_uid},{content.content_uid},{content.duration}\n')
                 cur_index += 1
 
+    def get_by_user_id(self, user_id):
+        data = self.get_table()
+        return data[data['user_uid'] == user_id]
+
 
 class UserTable(Table):
 
     def append(self, user: User):
+        if user.id == -1:
+            user.id = max(self._indexes) + 1
         with open(self._path, 'a') as file:
             if user.id in self._indexes:
-                return False
+                return None
 
             line = f'{user.id},{user.name},{user.password},{str(user.is_admin)}\n'
             file.write(line)
             self._indexes.append(user.id)
 
-        return True
+        return user
 
 
 def test_UserTable():
