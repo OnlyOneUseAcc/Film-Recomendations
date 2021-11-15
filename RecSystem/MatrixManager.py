@@ -84,7 +84,7 @@ class MatrixManager:
             content = self.get_content(item[1])
             unit = WatchHistoryUnit(user_uid=item[0],
                                     content_uid=item[1],
-                                    duration=item[2] / content[0].duration,
+                                    duration=item[2],
                                     name=content[0].name,
                                     type=content[0].type)
             units.append(unit)
